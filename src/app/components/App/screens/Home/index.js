@@ -30,7 +30,7 @@ class Home extends Component {
               <Link to={ROUTES.PROPERTIES}>{STRINGS.SEARCH_PROPERTIES}</Link>
               <Link to={ROUTES.VALUATOR}>{STRINGS.VALUATOR}</Link>
             </div>
-            <span style={styless.spanHello}>Hello!!</span>
+            <span style={styless.spanHello}>Hellooo!!</span>
           </div>
         </div>
         <Footer />
