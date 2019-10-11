@@ -18,7 +18,26 @@ const styless = {
 };
 
 class Home extends Component {
+  state = { data: 'fd' };
+
+  /* componentDidMount() {
+    fetch('https://ma-express-v2.herokuapp.com/')
+      // .then(response => response.json())
+      .then(response => this.setState({ data: response }));
+  } */
+
+  showText = () => {
+    fetch('https://ma-express-v2.herokuapp.com/users')
+      .then(response => response.json())
+      .then(response => {
+        // console.log(response);
+        this.setState({ data: response });
+      });
+  };
+
   render() {
+    // const rere = 'dsds';
+    // this.setState({ data: rere });
     return (
       <Fragment>
         <div className={styles.mainSection}>
@@ -29,8 +48,9 @@ class Home extends Component {
             <div className={styles.buttons}>
               <Link to={ROUTES.PROPERTIES}>{STRINGS.SEARCH_PROPERTIES}</Link>
               <Link to={ROUTES.VALUATOR}>{STRINGS.VALUATOR}</Link>
+              <button onClick={this.showText}>Show text</button>
             </div>
-            <span style={styless.spanHello}>Hellooo!!</span>
+            <span style={styless.spanHello}>{this.state.data}</span>
           </div>
         </div>
         <Footer />
