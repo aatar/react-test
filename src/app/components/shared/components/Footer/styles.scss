@@ -1,0 +1,35 @@
+@import '../../../../constants/colors.scss';
+
+.footer {
+    height: 4em;
+    border-top-style: solid;
+    border-top-color: lightgray;
+    border-top-width: 1px;
+    background-color: white;
+    margin: 0 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .itba-logo {
+      width: 115px;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
