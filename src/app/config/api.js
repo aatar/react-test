@@ -3,8 +3,7 @@ import { create } from 'apisauce';
 import { NETWORK_ERROR, ERROR_CODE } from './constants';
 
 const api = create({
-  baseURL: process.env.API_BASE_URL,
-  // baseURL: 'https://ma-express-v2.herokuapp.com',
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   timeout: 15000
 });
 

@@ -24,9 +24,6 @@ const styless = {
 class Home extends Component {
   componentDidMount() {
     this.props.getPhotos(2);
-    /* fetch('https://ma-express-v2.herokuapp.com/albums/2/photos')
-      .then(response => response.json())
-      .then(response => this.setState({ data: response })); */
   }
 
   render() {
