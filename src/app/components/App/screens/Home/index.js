@@ -1,13 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import logo from '../../../../resources/images/logo.png';
 import home from '../../../../resources/images/home.png';
 import { ROUTES } from '../../routes';
 import Footer from '../../../shared/components/Footer';
+import { actionCreators as albumPhotosActions } from '../../../../redux/albumPhotos/actions';
 
 import styles from './styles.scss';
 import { STRINGS } from './strings';
+import { MAX_AMOUNT } from './constants';
 
 const styless = {
   spanHello: {
@@ -18,26 +22,15 @@ const styless = {
 };
 
 class Home extends Component {
-  state = { data: 'fd' };
-
-  /* componentDidMount() {
-    fetch('https://ma-express-v2.herokuapp.com/')
-      // .then(response => response.json())
-      .then(response => this.setState({ data: response }));
-  } */
-
-  showText = () => {
-    fetch('https://ma-express-v2.herokuapp.com/users')
+  componentDidMount() {
+    this.props.getPhotos(2);
+    /* fetch('https://ma-express-v2.herokuapp.com/albums/2/photos')
       .then(response => response.json())
-      .then(response => {
-        // console.log(response);
-        this.setState({ data: response });
-      });
-  };
+      .then(response => this.setState({ data: response })); */
+  }
 
   render() {
-    // const rere = 'dsds';
-    // this.setState({ data: rere });
+    const { albumPhotos } = this.props;
     return (
       <Fragment>
         <div className={styles.mainSection}>
@@ -48,9 +41,16 @@ class Home extends Component {
             <div className={styles.buttons}>
               <Link to={ROUTES.PROPERTIES}>{STRINGS.SEARCH_PROPERTIES}</Link>
               <Link to={ROUTES.VALUATOR}>{STRINGS.VALUATOR}</Link>
-              <button onClick={this.showText}>Show text</button>
             </div>
-            <span style={styless.spanHello}>{this.state.data}</span>
+            {albumPhotos &&
+              albumPhotos.map(
+                (item, index) =>
+                  index < MAX_AMOUNT && (
+                    <span key={item.id} style={styless.spanHello}>
+                      {item.title}
+                    </span>
+                  )
+              )}
           </div>
         </div>
         <Footer />
@@ -59,4 +59,28 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  getPhotos: PropTypes.func,
+  albumPhotos: PropTypes.arrayOf(
+    PropTypes.shape({
+      albumId: PropTypes.number,
+      id: PropTypes.number,
+      title: PropTypes.string,
+      url: PropTypes.string,
+      thumbnailUrl: PropTypes.string
+    })
+  )
+};
+
+const mapStateToProps = store => ({
+  albumPhotos: store.albumPhotos.albumPhotos
+});
+
+const mapDispatchToProps = dispatch => ({
+  getPhotos: albumId => dispatch(albumPhotosActions.getPhotos(albumId))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
